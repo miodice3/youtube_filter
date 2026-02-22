@@ -5,7 +5,17 @@ function getChannelName(item) {
   return el ? el.textContent.trim() : null;
 }
 
+function filterShorts() {
+  document.querySelectorAll('ytd-rich-section-renderer').forEach(section => {
+    const shelf = section.querySelector('ytd-rich-shelf-renderer');
+    if (shelf && shelf.querySelector('#title')?.textContent.trim() === 'Shorts') {
+      section.style.display = 'none';
+    }
+  });
+}
+
 function filterItems() {
+  filterShorts();
   if (excludeList.length === 0) return;
   const items = document.querySelectorAll('ytd-rich-item-renderer');
   items.forEach(item => {
